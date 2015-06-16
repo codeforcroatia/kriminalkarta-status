@@ -1,5 +1,5 @@
 jQuery(function($) {
-  var url = 'https://docs.google.com/spreadsheets/d/1DfWaAcYtJspSiPX7ambDJnXPUWHo7beAAQMjjsREFUQ#gid=0';
+  var url = 'https://docs.google.com/spreadsheets/d/1DfWaAcYtJspSiPX7ambDJnXPUWHo7beAAQMjjsREFUQ/edit#gid=0;
   var $el = $('.load-status');
   $el.html('<h3>Loading <img src="http://assets.okfn.org/images/icons/ajaxload-circle.gif" /></h3>');
   var tmpl = $('#our-template').html();
