@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="utf-8">
+  <title>Status projekta KrimKarta</title>
+  <meta name="author" content="Code for Croatia i HollaBack!">
+
+  <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap-combined.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/style.css" media="all">
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46708458-x', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+<body>
+<div class="container">
+<div class="content">
+  <div class="page-header">
+    <h1>
+      Status projekta KrimKarta
+      <a href="#" style="float: right;"><img src="http://media.idahostatesman.com/static/Idaho2007/images/ext/crimemap_logo.gif" style="height: 40px; margin-top: -5px;" alt="" /></a>
+      <br />
+      <small>što je potrebno napraviti, što je u tijeku, što je učinjeno</small>
+    </h1>
+  </div>
+  <div class="row">
+    <div class="span8">
+      <div class="load-status"></div>
+    </div>
+    <div class="span4">
+      <p><a href="#" class="source-url btn btn-large btn-success">Dodaj nove podatke na popis &raquo;</a></p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="" class="source-url">Google Spreadsheet tablica</a>
+    &ndash;
+    <a href="https://github.com/openspending/loadstatus">Izvorni kod ove aplikacije</a>
+    &ndash;
+    <a href="http://imamopravoznati.org" title="Open Online Software Service">Pristup informacijama omogućuje Imamo pravo znati</a>
+    &ndash;
+    <a href="http://codeforcroatia.org/">CodeForCroatia.org</a>
+  </div>
+</div><!-- /content -->
+</div><!-- /container -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
+<script src="http://okfnlabs.org/recline.backend.gdocs/backend.gdocs.js"></script>
+<script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/md5.js"></script>
+
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/mustache" id="our-template">
+{{#records}}
+<div class="record">
+  <{{id}}>
+    {{title}}
+  </{{id}}>
+
+  <div class="owners">
+    {{#owners}}<img class="gravatar thumbnail" title="Nositelj {{name}}" src="{{gravatar}}" />{{/owners}}
+
+    {{^owners}}
+    <a href="" class="btn btn-large btn-primary take-it-on" data-toggle="modal" data-target="#take-it-on-modal">Nema čovjeka na ovome &ndash; preuzmi ti &raquo;</a>
+    {{/owners}}
+  </div>
+
+<p class="data-source">
+  Link: 
+  {{#dataurl}}
+  <a href="{{dataurl}}">Zahtjev za pravo na pristup informacijama</a>
+  ({{dataformat}}{{^dataformat}}Unknown format{{/dataformat}})
+  {{/dataurl}}
+  {{^dataurl}}
+  <strong>Potrebno je pronaći!</strong>
+  {{/dataurl}}
+  &ndash; <a href="#" class="js-more-info" title="Click to show (hide) more info"><i class="icon-info-sign"></i> Više info</a>
+</p>
+<div class="progress">
+  <div class="bar" style="width: {{progress}}%;" title="progress so far"></div>
+</div>
+
+<dl class="dl-horizontal more-info" style="display: none;">
+  <dt>
+    Link
+  </dt>
+  <dd>
+    {{#dataurl}}<a href="{{dataurl}}">Zahtjev za pravo na pristup informacijama</a>{{/dataurl}}
+    {{^dataurl}}&nbsp;{{/dataurl}}
+  </dd>
+  <dt>
+    Detalji
+  </dt>
+  <dd>
+  {{place}}{{#period}} &ndash; {{period}}{{/period}}.
+  {{{description}}}
+  </dd>
+  <dt>
+    Zadaci
+  </dt>
+  <dd>
+    {{workneeded}}
+  </dd>
+  <dt>
+    Bilješke
+  </dt>
+  <dd>
+    {{{notes}}}
+  </dd>
+</dl>
+</div>
+{{/records}}
+</script>
+
+<div class="modal hide fade" id="take-it-on-modal">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>To je odlično! Evo kako možeš započeti&hellip;</h3>
+  </div>
+  <div class="modal-body">
+    <p>Prvo - otvori <a href="https://docs.google.com/spreadsheets/d/1DfWaAcYtJspSiPX7ambDJnXPUWHo7beAAQMjjsREFUQ" class="source-url" target="_blank">ovu google tablicu</a> i napiši svoje ime pod 'owners' tamo gdje nedostaje ime.</p>
+    <p>Zatim - počni pripremati podatke! Kontaktiraj našu <a href="http://diskurs.open.hr/" target="_blank">prijateljsku zajednicu</a> koja će rado razgovarati s tobom i pomoći ti</a>.</p>
+  </div>
+</div>
+</script>
+  
+</body>
+</html>
