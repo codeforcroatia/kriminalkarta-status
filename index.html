@@ -66,9 +66,9 @@
 <script type="text/mustache" id="our-template">
 {{#records}}
 <div class="record">
-  <h3>
+  <{{id}}>
     {{title}}
-  </h3>
+  </{{id}}>
 
   <div class="owners">
     {{#owners}}<img class="gravatar thumbnail" title="Nositelj {{name}}" src="{{gravatar}}" />{{/owners}}
